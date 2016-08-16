@@ -1,0 +1,86 @@
+<section class="mainbar">
+  <section class="matter">
+    <div class="container" ng-hide="vm.currentUser == null">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="widget wgreen">
+            <div ht-widget-header title="Search User"></div>
+            <div class="widget-content user">
+              <form>
+                <div class="row">
+                 <div class="form-group col-md-4">
+                   <input type="text" ng-model="search" placeholder="Search Name">
+                 </div>
+               </div>
+             </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="widget wblue">
+          <div ht-widget-header title="User"></div>
+          <div class="widget-content user">
+            <form>
+              <fieldset ng-disabled="!(vm.user.id == vm.currentUser) || !vm.isAdmin">
+                {{!(vm.user.id == vm.currentUser)}}
+                <div class="row">
+                 <div class="form-group">
+                   <input ng-model="vm.user.name" type="text" class="form-control" id="nome" placeholder="Name">
+                 </div>
+
+                 <div class="form-group">
+                   <input ng-model="vm.user.email" type="text" class="form-control" id="email" placeholder="Email">
+                 </div>
+
+                 <div class="form-group">
+                   <input ng-model="vm.user.password" type="password" class="form-control" id="senha" placeholder="Password">
+                 </div>
+
+                 <div class="form-group" ng-show="{{vm.isAdmin}}">
+                   <input ng-model="vm.user.admin" type="checkbox" id="admin">
+                   <label for="admin">Admin</label>
+                 </div>
+
+                  <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary" ng-click="vm.saveUser()">Save</button>
+                    <button class="btn btn-default" ng-click="vm.cancel()">Cancel</button>
+                  </div>
+                </fieldset>
+            </form>
+          </div>
+          <div class="widget-foot">
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="widget wviolet">
+      <div ht-widget-header title="Users List" allow-collapse="true"></div>
+      <div class="widget-content text-center text-info">
+        <table class="table table-condensed table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="user in vm.users | filter : search">
+              <td>{{user.name}}</td>
+              <td>{{user.email}}</td>
+              <td><a ng-if="user.id == vm.currentUser" ng-click="vm.user = user">Edit</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="widget-foot">
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <div ng-hide="vm.currentUser != null">
+      <div ng ng-include="'app/core/404.html'"></div>
+  </div>
+  </section>
+</section>

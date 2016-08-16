@@ -1,0 +1,59 @@
+<section class="mainbar">
+  <section class="matter">
+    <div class="container" ng-hide="vm.currentUser == null">
+        <div class="widget wblue">
+          <div ht-widget-header title="New Task"></div>
+          <div class="widget-content task" >
+            <form>
+              <div class="row">
+               <div class="form-group">
+                 <input ng-model="vm.task.title" type="text" class="form-control"
+                  id="title" placeholder="Title" ng-disabled="{{vm.isAdmin}}">
+               </div>
+
+               <div class="form-group">
+                 <input ng-model="vm.task.description" type="text" class="form-control"
+                  id="description" placeholder="Description" ng-disabled="{{vm.isAdmin}}">
+               </div>
+
+                <div>
+                  <button type="submit" class="btn btn-primary" ng-click="vm.saveTask()" ng-disabled="{{vm.isAdmin}}" >Save</button>
+                  <button class="btn btn-default" ng-disabled="{{vm.isAdmin}}">Cancel</button>
+                </div>
+            </form>
+          </div>
+          <div class="widget-foot">
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    <div class="widget wviolet">
+      <div ht-widget-header title="Tasks List" allow-collapse="true"></div>
+      <div class="widget-content text-center text-info">
+        <task-detail task="vm.selectedTask"></task-detail>
+
+        <table class="table table-condensed table-striped">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>User</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="task in vm.tasks | filter: vm.filterUserTasks() ">
+              <td ng-click="vm.selectTask(task)">{{task.title}}</td>
+              <td ng-click="vm.selectTask(task)">{{task.user.name}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="widget-foot">
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <div ng-hide="vm.currentUser != null">
+      <div ng ng-include="'app/core/404.html'"></div>
+  </div>
+  </section>
+</section>
